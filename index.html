@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#5b5ce2" />
+  <meta name="description" content="Dowebcode Learn & Earn — learn daily, record progress, earn coins and unlock website resources." />
+  <title>Dowebcode Learn & Earn</title>
+  <style>
+    :root{
+      --primary:#5b5ce2;--primary-2:#7c5cff;--primary-soft:#eef0ff;--bg:#f5f7fb;--surface:#fff;
+      --surface-2:#f8f9fc;--text:#172033;--muted:#6d7485;--border:#e6e9f0;--shadow:0 12px 40px rgba(27,38,72,.08);
+      --shadow-sm:0 4px 16px rgba(27,38,72,.07);--success:#0f9f6e;--success-soft:#e8faf3;--warning:#b77908;
+      --warning-soft:#fff7df;--danger:#c83b3b;--danger-soft:#fff0f0;--info:#2166d1;--info-soft:#edf5ff;
+      --radius:20px;--radius-sm:14px;--sidebar:256px;--header:72px;--transition:180ms ease;
+      color-scheme:light;
+    }
+    [data-theme="dark"]{
+      --bg:#0d1220;--surface:#141b2d;--surface-2:#101728;--text:#f4f6fb;--muted:#9ca5ba;--border:#263149;
+      --primary-soft:#23284f;--success-soft:#10382d;--warning-soft:#3d3010;--danger-soft:#421d24;--info-soft:#122b4e;
+      --shadow:0 16px 44px rgba(0,0,0,.32);--shadow-sm:0 8px 20px rgba(0,0,0,.22);color-scheme:dark;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+    body{overflow-x:hidden}
+    button,input,textarea,select{font:inherit}
+    button{cursor:pointer}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .hidden{display:none!important}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .app-shell{min-height:100vh}
+    .auth-shell{min-height:100vh;display:grid;place-items:center;padding:24px;background:
+      radial-gradient(circle at 15% 10%,rgba(91,92,226,.12),transparent 30%),
+      radial-gradient(circle at 85% 85%,rgba(124,92,255,.10),transparent 32%),var(--bg)}
+    .auth-card{width:min(1040px,100%);display:grid;grid-template-columns:1.05fr .95fr;background:var(--surface);border:1px solid var(--border);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}
+    .auth-visual{padding:44px;background:linear-gradient(145deg,#151c35 0%,#26306a 56%,#5b5ce2 100%);color:#fff;position:relative;overflow:hidden}
+    .auth-visual:after{content:"";position:absolute;width:360px;height:360px;border-radius:50%;right:-140px;bottom:-150px;background:rgba(255,255,255,.10)}
+    .brand-mark{display:inline-flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.04em}
+    .brand-icon{width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.16);display:grid;place-items:center;border:1px solid rgba(255,255,255,.22)}
+    .auth-visual h1{font-size:clamp(30px,4vw,52px);line-height:1.03;margin:72px 0 18px;max-width:520px}
+    .auth-visual p{font-size:16px;line-height:1.7;color:rgba(255,255,255,.78);max-width:520px}
+    .flow-strip{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+    .flow-pill{padding:9px 12px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);border-radius:999px;font-size:12px}
+    .auth-panel{padding:40px}
+    .auth-panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+    .auth-panel h2{font-size:28px;margin:0 0 7px}
+    .auth-panel p{margin:0;color:var(--muted);line-height:1.6}
+    .form-grid{display:grid;gap:15px}
+    .form-grid.two{grid-template-columns:1fr 1fr}
+    .field{display:grid;gap:7px}
+    label{font-size:13px;font-weight:700;color:var(--muted)}
+    input,textarea,select{width:100%;border:1px solid var(--border);background:var(--surface-2);color:var(--text);padding:13px 14px;border-radius:13px;outline:none;transition:border-color var(--transition),box-shadow var(--transition),background var(--transition)}
+    input:focus,textarea:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(91,92,226,.12);background:var(--surface)}
+    textarea{min-height:150px;resize:vertical;line-height:1.65}
+    .field-row{display:flex;justify-content:space-between;gap:12px;align-items:center}
+    .small{font-size:12px;color:var(--muted)}
+    .link-btn{border:0;background:none;color:var(--primary);padding:0;font-weight:700}
+    .btn{border:1px solid transparent;border-radius:13px;padding:12px 16px;font-weight:750;display:inline-flex;align-items:center;justify-content:center;gap:9px;transition:transform var(--transition),box-shadow var(--transition),background var(--transition),border-color var(--transition);min-height:44px}
+    .btn:hover{transform:translateY(-1px)}
+    .btn:active{transform:translateY(0)}
+    .btn:disabled{opacity:.58;cursor:not-allowed;transform:none}
+    .btn.primary{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;box-shadow:0 8px 18px rgba(91,92,226,.24)}
+    .btn.secondary{background:var(--surface);color:var(--text);border-color:var(--border)}
+    .btn.ghost{background:transparent;color:var(--muted)}
+    .btn.danger{background:var(--danger-soft);color:var(--danger);border-color:transparent}
+    .btn.success{background:var(--success-soft);color:var(--success)}
+    .auth-switch{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+
+    .layout{min-height:100vh;display:grid;grid-template-columns:var(--sidebar) 1fr}
+    .sidebar{position:sticky;top:0;height:100vh;background:var(--surface);border-right:1px solid var(--border);padding:18px 14px;display:flex;flex-direction:column;z-index:30}
+    .brand{display:flex;align-items:center;gap:10px;padding:10px 10px 20px;font-weight:900;letter-spacing:.02em}
+    .brand .brand-icon{background:var(--primary);color:#fff;border:0;width:36px;height:36px}
+    .nav-group{display:grid;gap:6px;margin-top:8px}
+    .nav-label{padding:12px 11px 6px;font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.12em}
+    .nav-item{border:0;background:transparent;color:var(--muted);padding:11px 12px;border-radius:12px;display:flex;align-items:center;gap:11px;text-align:left;font-weight:700}
+    .nav-item:hover{background:var(--surface-2);color:var(--text)}
+    .nav-item.active{background:var(--primary-soft);color:var(--primary)}
+    .nav-icon{width:19px;height:19px;display:grid;place-items:center;flex:0 0 auto}
+    .sidebar-bottom{margin-top:auto;display:grid;gap:8px}
+    .user-mini{padding:12px;border:1px solid var(--border);background:var(--surface-2);border-radius:15px}
+    .user-mini strong{display:block;font-size:13px}
+    .user-mini span{font-size:11px;color:var(--muted)}
+    .main{min-width:0}
+    .topbar{height:var(--header);background:rgba(255,255,255,.78);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:25}
+    [data-theme="dark"] .topbar{background:rgba(20,27,45,.82)}
+    .topbar-left{display:flex;align-items:center;gap:10px}
+    .page-title{font-size:15px;font-weight:800}
+    .top-actions{display:flex;align-items:center;gap:8px}
+    .icon-btn{width:40px;height:40px;border:1px solid var(--border);background:var(--surface);border-radius:12px;color:var(--muted);display:grid;place-items:center}
+    .avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--primary-soft);color:var(--primary);font-weight:850}
+    .content{padding:28px;max-width:1550px;margin:0 auto}
+    .welcome{display:flex;justify-content:space-between;gap:22px;align-items:flex-end;margin-bottom:22px}
+    .eyebrow{font-size:11px;color:var(--primary);font-weight:900;text-transform:uppercase;letter-spacing:.14em;margin-bottom:7px}
+    h1,h2,h3{letter-spacing:-.025em}
+    .welcome h1{font-size:clamp(26px,3vw,36px);margin:0 0 7px}.welcome p{margin:0;color:var(--muted)}
+    .stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}
+    .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:18px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+    .stat-card:after{content:"";position:absolute;width:90px;height:90px;right:-30px;top:-30px;border-radius:50%;background:var(--primary-soft)}
+    .stat-label{font-size:12px;color:var(--muted);font-weight:750}.stat-value{font-size:28px;font-weight:900;margin-top:5px}.stat-help{font-size:11px;color:var(--muted);margin-top:5px}
+    .grid-two{display:grid;grid-template-columns:minmax(0,1fr) 180px;gap:18px;align-items:start}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm)}
+    .card-pad{padding:20px}
+    .card-head{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:15px}.card-head h2,.card-head h3{margin:0;font-size:18px}.muted{color:var(--muted)}
+    .badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:850;white-space:nowrap}
+    .badge.success{background:var(--success-soft);color:var(--success)}.badge.warning{background:var(--warning-soft);color:var(--warning)}.badge.info{background:var(--info-soft);color:var(--info)}.badge.muted{background:var(--surface-2);color:var(--muted)}
+    .lesson-card{overflow:hidden}.lesson-top{padding:21px 21px 16px}.lesson-title{display:flex;gap:12px;align-items:flex-start}.day-chip{min-width:60px;height:60px;border-radius:16px;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;font-size:13px;font-weight:900;text-align:center;line-height:1.1}.day-chip small{font-size:10px;letter-spacing:.08em}
+    .lesson-title h2{font-size:23px;margin:0 0 6px}.lesson-title p{margin:0;color:var(--muted);line-height:1.55}
+    .video-shell{background:#0b1020}.video-wrap{width:100%;aspect-ratio:16/9;position:relative}.video-wrap iframe{width:100%;height:100%;border:0;display:block}
+    .watch-panel{padding:17px 21px}.watch-line{display:flex;justify-content:space-between;gap:10px;font-size:12px;font-weight:800;margin-bottom:8px}.progress{height:10px;background:var(--surface-2);border-radius:999px;overflow:hidden;border:1px solid var(--border)}.progress > span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--primary-2));border-radius:999px;transition:width 240ms ease}
+    .learn-panel{padding:20px;border-top:1px solid var(--border);background:var(--surface)}
+    .textarea-wrap{position:relative}.char-count{text-align:right;font-size:11px;color:var(--muted);margin-top:6px}.action-row{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:14px}.mic{width:46px;height:46px;border-radius:13px;border:1px solid var(--border);background:var(--surface-2);color:var(--primary);display:grid;place-items:center}.mic.listening{background:var(--danger-soft);color:var(--danger);border-color:transparent;animation:pulse 1.2s infinite}.actions-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.speech-status{font-size:12px;color:var(--muted)}
+    @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(200,59,59,.16)}50%{box-shadow:0 0 0 8px rgba(200,59,59,0)}}
+    .ad-card{min-height:300px;display:grid;place-items:center;padding:10px}.ad-box{width:160px;min-height:300px;display:flex;flex-direction:column;align-items:center;gap:6px}.ad-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}.ad-inner{width:160px;min-height:300px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .ref-card{margin-top:18px}.ref-card img{width:100%;max-width:300px;height:auto;margin:0 auto 12px;border-radius:12px}.ref-copy p{line-height:1.6;color:var(--muted);font-size:13px}.ref-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+    .reward-card{margin-top:18px;padding:20px;background:linear-gradient(135deg,var(--surface),var(--primary-soft));border:1px solid rgba(91,92,226,.16)}.reward-top{display:flex;gap:14px;align-items:flex-start}.reward-icon{width:50px;height:50px;border-radius:15px;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:22px;flex:0 0 auto}.reward-card h3{margin:0 0 5px;font-size:19px}.reward-card p{margin:0;color:var(--muted);line-height:1.55}.reward-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+    .section{display:none}.section.active{display:block;animation:pageIn 180ms ease}.page-grid{display:grid;gap:18px}.two-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}@keyframes pageIn{from{opacity:.35;transform:translateY(4px)}to{opacity:1;transform:none}}
+    .table-wrap{overflow:auto;border:1px solid var(--border);border-radius:15px}.data-table{width:100%;border-collapse:collapse;min-width:720px}.data-table th,.data-table td{padding:12px 13px;border-bottom:1px solid var(--border);font-size:12px;text-align:left;vertical-align:top}.data-table th{background:var(--surface-2);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;position:sticky;top:0}.data-table tr:last-child td{border-bottom:0}.data-table td strong{font-size:12px}.table-actions{display:flex;gap:6px;flex-wrap:wrap}
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.filters input,.filters select{max-width:240px}
+    .list{display:grid;gap:10px}.list-item{display:flex;justify-content:space-between;gap:14px;padding:14px;border:1px solid var(--border);border-radius:15px;background:var(--surface-2)}.list-item-main strong{display:block;margin-bottom:4px}.list-item-main span{font-size:12px;color:var(--muted)}.coin-plus{font-weight:900;color:var(--success)}.coin-minus{font-weight:900;color:var(--danger)}
+    .profile-grid{display:grid;grid-template-columns:180px 1fr;gap:20px;align-items:start}.profile-badge{background:var(--primary-soft);border-radius:20px;padding:28px;text-align:center}.profile-avatar{width:86px;height:86px;border-radius:26px;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:26px;font-weight:900;margin:0 auto 10px}
+    .id-card{width:min(560px,100%);background:linear-gradient(135deg,#131b36,#5b5ce2);color:#fff;border-radius:24px;padding:24px;position:relative;overflow:hidden;min-height:270px;box-shadow:0 20px 55px rgba(46,55,125,.28)}.id-card:after{content:"";position:absolute;width:280px;height:280px;border:1px solid rgba(255,255,255,.18);border-radius:50%;right:-110px;top:-90px}.id-card .brand-mark{position:relative;z-index:2}.id-main{position:relative;z-index:2;margin-top:42px;display:grid;grid-template-columns:1fr auto;gap:18px}.id-name{font-size:24px;font-weight:900}.id-meta{margin-top:6px;color:rgba(255,255,255,.72);font-size:12px}.id-number{font-size:17px;font-weight:900;letter-spacing:.08em}.id-status{display:inline-flex;margin-top:14px;padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.15);font-size:11px}.id-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.kpi{border:1px solid var(--border);border-radius:15px;padding:15px;background:var(--surface-2)}.kpi span{display:block;font-size:11px;color:var(--muted)}.kpi strong{font-size:20px;margin-top:4px;display:block}
+    .modal{position:fixed;inset:0;background:rgba(8,12,25,.55);backdrop-filter:blur(5px);display:grid;place-items:center;padding:18px;z-index:80}.modal-card{width:min(760px,100%);max-height:min(86vh,760px);overflow:auto;background:var(--surface);border:1px solid var(--border);border-radius:22px;box-shadow:var(--shadow)}.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid var(--border)}.modal-head h3{margin:0}.modal-body{padding:20px}.help-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.help-item{padding:14px;border:1px solid var(--border);border-radius:15px;background:var(--surface-2)}.help-item strong{display:block;margin-bottom:5px}.help-item p{font-size:12px;color:var(--muted);line-height:1.6;margin:0}
+    .drawer{position:fixed;left:0;top:0;bottom:0;width:min(320px,88vw);background:var(--surface);border-right:1px solid var(--border);z-index:70;transform:translateX(-105%);transition:transform 220ms ease;box-shadow:var(--shadow)}.drawer.open{transform:translateX(0)}.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:65}.mobile-menu-btn{display:none}
+    .toast-stack{position:fixed;right:18px;bottom:18px;display:grid;gap:8px;z-index:120;width:min(360px,calc(100vw - 36px))}.toast{background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow);border-radius:14px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;animation:toastIn 180ms ease}.toast strong{display:block;font-size:12px;margin-bottom:3px}.toast span{font-size:12px;color:var(--muted);line-height:1.45}.toast.success{border-left:4px solid var(--success)}.toast.error{border-left:4px solid var(--danger)}.toast.warning{border-left:4px solid var(--warning)}.toast.info{border-left:4px solid var(--info)}@keyframes toastIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    .global-loading{position:fixed;inset:0;background:rgba(8,12,25,.38);backdrop-filter:blur(4px);z-index:110;display:grid;place-items:center}.loader-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px 22px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px;min-width:240px}.spinner{width:20px;height:20px;border-radius:50%;border:3px solid var(--border);border-top-color:var(--primary);animation:spin .75s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+    .notice{border:1px solid var(--border);background:var(--surface-2);border-radius:14px;padding:12px 14px;font-size:12px;color:var(--muted);line-height:1.55}.notice.warning{background:var(--warning-soft);color:var(--warning);border-color:transparent}.notice.success{background:var(--success-soft);color:var(--success);border-color:transparent}.error-msg{font-size:12px;color:var(--danger);min-height:16px}.success-msg{font-size:12px;color:var(--success);min-height:16px}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    .code-box{position:relative;background:#0e1425;color:#eef2ff;border-radius:16px;padding:16px;white-space:pre-wrap;word-break:break-word;line-height:1.6;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;max-height:420px;overflow:auto}.copy-row{display:flex;justify-content:flex-end;margin-bottom:8px}
+    .print-only{display:none}
+    .login-help{margin-top:12px}
+    .admin-badge{background:var(--primary-soft);color:var(--primary)}
+
+    @media (max-width:1100px){
+      :root{--sidebar:220px}.stats-grid{grid-template-columns:repeat(2,1fr)}.grid-two{grid-template-columns:minmax(0,1fr) 170px}
+    }
+    @media (max-width:820px){
+      .layout{display:block}.sidebar{display:none}.mobile-menu-btn{display:grid}.topbar{padding:0 14px}.content{padding:18px 14px}.grid-two{grid-template-columns:1fr}.ad-card{min-height:0}.ad-box{min-height:250px}.two-col,.profile-grid{grid-template-columns:1fr}.auth-card{grid-template-columns:1fr}.auth-visual{display:none}.auth-panel{padding:28px 20px}.help-grid{grid-template-columns:1fr}
+    }
+    @media (max-width:560px){
+      .stats-grid{grid-template-columns:1fr 1fr;gap:10px}.stat-card{padding:14px}.stat-value{font-size:22px}.welcome{align-items:flex-start;flex-direction:column}.topbar .page-title{display:none}.action-row{align-items:stretch;flex-direction:column}.actions-left{justify-content:space-between}.btn.full-mobile{width:100%}.id-main{grid-template-columns:1fr}.lesson-title h2{font-size:19px}.content{padding:14px 10px}.card-pad{padding:16px}.top-actions .hide-mobile{display:none}.form-grid.two{grid-template-columns:1fr}
+    }
+    @media print{
+      body{background:#fff}.app-shell>*:not(#printArea),.modal,.toast-stack,.global-loading{display:none!important}.print-only{display:block}.print-card{width:85mm;min-height:54mm;padding:7mm;border-radius:6mm;background:#151c35;color:#fff;margin:auto}.print-card .brand-mark{font-size:11px}.print-card .brand-icon{width:24px;height:24px}.print-main{margin-top:12mm}.print-name{font-size:20px;font-weight:900}.print-id{font-family:monospace;font-size:13px;margin-top:2mm}.print-meta{font-size:9px;color:rgba(255,255,255,.75);margin-top:2mm}
+    }
+  </style>
+</head>
+<body>
+  <div id="toastStack" class="toast-stack"></div>
+  <div id="globalLoading" class="global-loading hidden"><div class="loader-card"><span class="spinner"></span><div><strong id="loadingTitle">Loading...</strong><div class="small" id="loadingText">Please wait.</div></div></div></div>
+
+  <div id="authView" class="auth-shell">
+    <div class="auth-card">
+      <section class="auth-visual">
+        <div class="brand-mark"><span class="brand-icon">DW</span><span>Dowebcode Learn & Earn</span></div>
+        <h1>Learn skills.<br>Build progress.<br>Unlock resources.</h1>
+        <p>A lightweight learning platform where your daily lesson, learning response, attendance and rewards stay connected to your real account.</p>
+        <div class="flow-strip"><span class="flow-pill">Watch</span><span class="flow-pill">Learn</span><span class="flow-pill">Submit</span><span class="flow-pill">Earn</span><span class="flow-pill">Unlock</span></div>
+      </section>
+      <section class="auth-panel">
+        <div id="loginFormView"></div>
+        <div id="signupFormView" class="hidden"></div>
+        <div id="verifyFormView" class="hidden"></div>
+        <div id="forgotFormView" class="hidden"></div>
+        <div id="resetFormView" class="hidden"></div>
+      </section>
+    </div>
+  </div>
+
+  <div id="appView" class="app-shell hidden"></div>
+  <div id="drawerOverlay" class="drawer-overlay hidden"></div>
+  <aside id="mobileDrawer" class="drawer"></aside>
+
+  <div id="helpModal" class="modal hidden"><div class="modal-card"><div class="modal-head"><h3>How to Use Dowebcode Learn & Earn</h3><button class="icon-btn" onclick="UI.closeModal('helpModal')" aria-label="Close">✕</button></div><div class="modal-body"><div class="help-grid">
+    <div class="help-item"><strong>1. Create your account</strong><p>Enter your name, phone, email and a secure password.</p></div>
+    <div class="help-item"><strong>2. Verify email</strong><p>Enter the six-digit OTP sent to your email.</p></div>
+    <div class="help-item"><strong>3. Get your Member ID</strong><p>Your permanent DWC Member ID is created after verification.</p></div>
+    <div class="help-item"><strong>4. Watch your lesson</strong><p>Play the assigned YouTube lesson and build valid watch progress.</p></div>
+    <div class="help-item"><strong>5. Reach the watch threshold</strong><p>The platform checks meaningful playback progress instead of trusting a finish button.</p></div>
+    <div class="help-item"><strong>6. Tell us what you learned</strong><p>Write at least the configured number of characters in your own words.</p></div>
+    <div class="help-item"><strong>7. Speak to Write</strong><p>Use your browser's built-in speech recognition where supported. No speech API key is required.</p></div>
+    <div class="help-item"><strong>8. Earn your coin</strong><p>After backend validation, attendance is recorded and your daily coin is issued.</p></div>
+    <div class="help-item"><strong>9. Unlock rewards</strong><p>Complete the configured target to unlock website source code and/or prompts.</p></div>
+    <div class="help-item"><strong>10. My ID</strong><p>Your digital member card can be printed using the browser print dialog.</p></div>
+    <div class="help-item"><strong>11. Ads</strong><p>Advertisements are informational/monetization content only. Ad clicks never earn coins.</p></div>
+    <div class="help-item"><strong>12. Privacy</strong><p>Your learning responses are kept inside your account records and are not public.</p></div>
+  </div><div style="margin-top:16px"><button class="btn primary" onclick="UI.closeModal('helpModal')">Got It</button></div></div></div></div>
+
+  <div id="contentModal" class="modal hidden"><div class="modal-card"><div class="modal-head"><h3 id="contentModalTitle">Details</h3><button class="icon-btn" onclick="UI.closeModal('contentModal')">✕</button></div><div id="contentModalBody" class="modal-body"></div></div></div>
+  <div id="printArea" class="print-only"></div>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+  /* =============================
+     DOWEBCODE LEARN & EARN V1
+     Frontend: HTML5 + CSS3 + Vanilla JS
+     No YouTube Data API and no speech API key.
+     ============================= */
+  const APP_CONFIG = {
+    // Google Apps Script Web App only. No Vercel proxy is required.
+    APP_NAME: "Dowebcode Learn & Earn",
+    REQUIRE_WATCH_SYNC_BEFORE_SUBMIT: true
+  };
+
+  const AppState = {
+    sessionToken: localStorage.getItem("dwcode_session") || null,
+    user: null,
+    dashboard: null,
+    currentVideo: null,
+    player: null,
+    playerReady: false,
+    watch: null,
+    recognition: null,
+    isListening: false,
+    learningInputMethod: "typed",
+    activeSection: "dashboard",
+    admin: false,
+    adminLoaded: false,
+    adminCache: {},
+    theme: localStorage.getItem("dwcode_theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+  };
+
+  const $ = (id) => document.getElementById(id);
+  const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;","\"":"&quot;"}[ch]));
+  const initials = (name) => String(name || "U").trim().split(/\s+/).slice(0,2).map(x=>x[0]).join("").toUpperCase() || "U";
+  const formatDate = (value) => value ? new Date(value).toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"}) : "—";
+  const formatDateTime = (value) => value ? new Date(value).toLocaleString(undefined,{year:"numeric",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}) : "—";
+  const number = (value) => Number(value || 0).toLocaleString();
+
+  const UI = {
+    init(){
+      document.documentElement.dataset.theme = AppState.theme;
+      renderAuthForms();
+      if (AppState.sessionToken) {
+        this.enterApp();
+      } else {
+        this.showAuth("login");
+      }
+      window.addEventListener("keydown", e => { if(e.key === "Escape"){ ["helpModal","contentModal"].forEach(id=>this.closeModal(id)); closeDrawer(); } });
+      ["helpModal","contentModal"].forEach(id=> $(id).addEventListener("click", e => { if(e.target.id===id) this.closeModal(id); }));
+    },
+    toast(message,type="info",title=null){
+      const node=document.createElement("div");node.className=`toast ${type}`;node.innerHTML=`<div><strong>${escapeHtml(title || ({success:"Success",error:"Error",warning:"Notice",info:"Info"}[type]||"Notice"))}</strong><span>${escapeHtml(message)}</span></div>`;$("toastStack").appendChild(node);setTimeout(()=>node.remove(),4500);
+    },
+    loading(on,title="Loading...",text="Please wait."){ $("globalLoading").classList.toggle("hidden",!on);$("loadingTitle").textContent=title;$("loadingText").textContent=text; },
+    showAuth(mode){
+      $("authView").classList.remove("hidden");$("appView").classList.add("hidden");
+      ["loginFormView","signupFormView","verifyFormView","forgotFormView","resetFormView"].forEach(id=>$(id).classList.add("hidden"));
+      const map={login:"loginFormView",signup:"signupFormView",verify:"verifyFormView",forgot:"forgotFormView",reset:"resetFormView"};$(map[mode]||map.login).classList.remove("hidden");
+    },
+    openModal(id){$(id).classList.remove("hidden")},
+    closeModal(id){$(id).classList.add("hidden")},
+    contentModal(title,html){$("contentModalTitle").textContent=title;$("contentModalBody").innerHTML=html;this.openModal("contentModal")},
+    setTheme(theme){AppState.theme=theme;localStorage.setItem("dwcode_theme",theme);document.documentElement.dataset.theme=theme;renderAppShell();renderCurrentSection();},
+    enterApp(){
+      $("authView").classList.add("hidden");$("appView").classList.remove("hidden");renderAppShell();this.loadDashboard();
+    }
+  };
+
+  function apiRequest(action,payload={}){
+    const request={action,...payload};
+    return new Promise((resolve,reject)=>{
+      if(!window.google || !google.script || !google.script.run){
+        reject(new Error("This app must be opened from its Google Apps Script Web App deployment."));
+        return;
+      }
+      google.script.run
+        .withSuccessHandler(data=>{
+          if(!data || !data.success){reject(new Error((data&&data.message)||"Request failed."));return;}
+          resolve(data);
+        })
+        .withFailureHandler(err=>{
+          reject(new Error((err&&err.message)||"Google Apps Script request failed."));
+        })
+        .serverRequest(request);
+    });
+  }
+
+  function renderAuthForms(){
+    $("loginFormView").innerHTML=`
+      <div class="auth-panel-head"><div><h2>Welcome back</h2><p>Sign in to continue your learning journey.</p></div></div>
+      <form id="loginForm" class="form-grid">
+        <div class="field"><label for="loginEmail">Email address</label><input id="loginEmail" type="email" autocomplete="email" required placeholder="you@example.com"></div>
+        <div class="field"><div class="field-row"><label for="loginPassword">Password</label><button class="link-btn" type="button" onclick="UI.showAuth('forgot')">Forgot password?</button></div><input id="loginPassword" type="password" autocomplete="current-password" required placeholder="Your password"></div>
+        <div id="loginError" class="error-msg"></div><button class="btn primary" id="loginBtn" type="submit">Sign In</button>
+      </form><div class="auth-switch">New here? <button class="link-btn" onclick="UI.showAuth('signup')">Create an account</button></div>`;
+    $("signupFormView").innerHTML=`
+      <div class="auth-panel-head"><div><h2>Create account</h2><p>Start your daily learning and reward journey.</p></div></div>
+      <form id="signupForm" class="form-grid">
+        <div class="field"><label for="signupName">Full name</label><input id="signupName" required autocomplete="name" placeholder="Your full name"></div>
+        <div class="form-grid two"><div class="field"><label for="signupPhone">Phone number</label><input id="signupPhone" required autocomplete="tel" placeholder="03XXXXXXXXX"></div><div class="field"><label for="signupEmail">Email address</label><input id="signupEmail" type="email" required autocomplete="email" placeholder="you@example.com"></div></div>
+        <div class="form-grid two"><div class="field"><label for="signupPassword">Password</label><input id="signupPassword" type="password" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters"></div><div class="field"><label for="signupConfirm">Confirm password</label><input id="signupConfirm" type="password" required minlength="8" autocomplete="new-password" placeholder="Repeat password"></div></div>
+        <div id="signupError" class="error-msg"></div><button class="btn primary" id="signupBtn" type="submit">Create Account</button>
+      </form><div class="auth-switch">Already have an account? <button class="link-btn" onclick="UI.showAuth('login')">Sign in</button></div>`;
+    $("verifyFormView").innerHTML=`
+      <div class="auth-panel-head"><div><h2>Verify your email</h2><p>We sent a 6-digit verification code to <strong id="verifyEmailLabel">your email</strong>.</p></div></div>
+      <form id="verifyForm" class="form-grid"><div class="field"><label for="verifyOtp">Verification code</label><input id="verifyOtp" inputmode="numeric" maxlength="6" required placeholder="123456"></div><div id="verifyError" class="error-msg"></div><button class="btn primary" id="verifyBtn" type="submit">Verify & Continue</button></form><div class="auth-switch"><button class="link-btn" onclick="resendOtp()">Resend code</button> · <button class="link-btn" onclick="UI.showAuth('login')">Back to login</button></div>`;
+    $("forgotFormView").innerHTML=`
+      <div class="auth-panel-head"><div><h2>Reset password</h2><p>Enter your account email and we will send a secure reset link.</p></div></div>
+      <form id="forgotForm" class="form-grid"><div class="field"><label for="forgotEmail">Email address</label><input id="forgotEmail" type="email" required autocomplete="email" placeholder="you@example.com"></div><div id="forgotMsg" class="error-msg"></div><button class="btn primary" id="forgotBtn" type="submit">Send Reset Link</button></form><div class="auth-switch"><button class="link-btn" onclick="UI.showAuth('login')">Back to login</button></div>`;
+    $("resetFormView").innerHTML=`
+      <div class="auth-panel-head"><div><h2>Choose a new password</h2><p>Your reset link is time-limited.</p></div></div>
+      <form id="resetForm" class="form-grid"><div class="field"><label for="resetPassword">New password</label><input id="resetPassword" type="password" minlength="8" required autocomplete="new-password" placeholder="At least 8 characters"></div><div class="field"><label for="resetConfirm">Confirm new password</label><input id="resetConfirm" type="password" minlength="8" required autocomplete="new-password" placeholder="Repeat password"></div><div id="resetError" class="error-msg"></div><button class="btn primary" id="resetBtn" type="submit">Update Password</button></form><div class="auth-switch"><button class="link-btn" onclick="UI.showAuth('login')">Back to login</button></div>`;
+    $("loginForm").addEventListener("submit",loginSubmit);$("signupForm").addEventListener("submit",signupSubmit);$("verifyForm").addEventListener("submit",verifySubmit);$("forgotForm").addEventListener("submit",forgotSubmit);$("resetForm").addEventListener("submit",resetSubmit);
+  }
+
+  let pendingSignupEmail="";
+  async function signupSubmit(e){e.preventDefault();const err=$("signupError");err.textContent="";const name=$("signupName").value.trim(),phone=$("signupPhone").value.trim(),email=$("signupEmail").value.trim(),password=$("signupPassword").value,confirm=$("signupConfirm").value;if(password!==confirm){err.textContent="Passwords do not match.";return}if(password.length<8){err.textContent="Password must be at least 8 characters.";return}UI.loading(true,"Creating account...","Validating your details and preparing email verification.");try{const data=await apiRequest("signup",{name,phone,email,password});pendingSignupEmail=email.toLowerCase();$("verifyEmailLabel").textContent=pendingSignupEmail;UI.showAuth("verify");UI.toast(data.message||"Account created. Check your email.","success");}catch(ex){err.textContent=ex.message}finally{UI.loading(false)}}
+  async function resendOtp(){if(!pendingSignupEmail){UI.showAuth("signup");return}UI.loading(true,"Sending verification code...","Please check your email.");try{const data=await apiRequest("resendOtp",{email:pendingSignupEmail});UI.toast(data.message,"success")}catch(ex){UI.toast(ex.message,"error")}finally{UI.loading(false)}}
+  async function verifySubmit(e){e.preventDefault();const err=$("verifyError");err.textContent="";const otp=$("verifyOtp").value.trim();if(!/^\d{6}$/.test(otp)){err.textContent="Enter the 6-digit code.";return}UI.loading(true,"Verifying...","Checking your secure verification code.");try{const data=await apiRequest("verifyOTP",{email:pendingSignupEmail,otp});AppState.sessionToken=data.data.sessionToken;localStorage.setItem("dwcode_session",AppState.sessionToken);UI.toast("Email verified. Your Member ID is ready.","success");UI.enterApp()}catch(ex){err.textContent=ex.message}finally{UI.loading(false)}}
+  async function loginSubmit(e){e.preventDefault();const err=$("loginError");err.textContent="";const email=$("loginEmail").value.trim(),password=$("loginPassword").value;UI.loading(true,"Signing in...","Checking your account securely.");try{const data=await apiRequest("login",{email,password});AppState.sessionToken=data.data.sessionToken;localStorage.setItem("dwcode_session",AppState.sessionToken);UI.toast("Login successful.","success");UI.enterApp()}catch(ex){err.textContent=ex.message}finally{UI.loading(false)}}
+  async function forgotSubmit(e){e.preventDefault();const msg=$("forgotMsg");msg.textContent="";UI.loading(true,"Preparing reset link...","If the account exists, an email will be sent.");try{const data=await apiRequest("forgotPassword",{email:$("forgotEmail").value.trim()});msg.className="success-msg";msg.textContent=data.message;UI.toast("Check your email for the next step.","success")}catch(ex){msg.className="error-msg";msg.textContent=ex.message}finally{UI.loading(false)}}
+  async function resetSubmit(e){e.preventDefault();const err=$("resetError");err.textContent="";const password=$("resetPassword").value,confirm=$("resetConfirm").value;if(password!==confirm){err.textContent="Passwords do not match.";return}const token=new URLSearchParams(location.search).get("reset");if(!token){err.textContent="Reset token is missing or invalid.";return}UI.loading(true,"Updating password...","Your secure reset token is being validated.");try{const data=await apiRequest("resetPassword",{token,password});history.replaceState({},"",location.pathname);UI.showAuth("login");UI.toast(data.message||"Password updated.","success")}catch(ex){err.textContent=ex.message}finally{UI.loading(false)}}
+
+  function renderAppShell(){
+    const admin=AppState.admin;
+    $("appView").innerHTML=`<div class="layout"><aside id="desktopSidebar" class="sidebar"></aside><main class="main"><header class="topbar"><div class="topbar-left"><button class="icon-btn mobile-menu-btn" onclick="toggleDrawer()" aria-label="Open menu">☰</button><div class="page-title" id="pageTitle">Dashboard</div></div><div class="top-actions"><button class="icon-btn" onclick="UI.openModal('helpModal')" aria-label="Help">ⓘ</button><button class="icon-btn hide-mobile" onclick="UI.setTheme(AppState.theme==='dark'?'light':'dark')" aria-label="Toggle theme">◐</button><div id="topAvatar" class="avatar">U</div></div></header><div class="content"><div id="appContent"></div></div></main></div>`;
+    const nav=buildNav();$("desktopSidebar").innerHTML=nav;$("mobileDrawer").innerHTML=nav+`<div style="padding:12px"><button class="btn secondary full-mobile" onclick="toggleDrawer()">Close menu</button></div>`;$("topAvatar").textContent=initials(AppState.user?.name||"User");
+  }
+  function buildNav(){const user=AppState.user||{};return `<div class="brand"><span class="brand-icon">DW</span><span>Dowebcode</span></div><div class="nav-group"><div class="nav-label">Learn</div>${navBtn("dashboard","Dashboard","⌂")}${navBtn("attendance","Attendance","✓")}${navBtn("coins","Coin History","◈")}${navBtn("rewards","Rewards","◆")}${navBtn("id","My ID","▣")}${navBtn("profile","Profile","●")}${user.isAdmin?`<div class="nav-label">Manage</div>${navBtn("admin","Admin Dashboard","⚙")}`:""}</div><div class="sidebar-bottom"><div class="user-mini"><strong>${escapeHtml(user.name||"User")}</strong><span>${escapeHtml(user.memberId||"Verifying")}</span></div><button class="nav-item" onclick="logout()"><span class="nav-icon">↪</span>Logout</button></div>`}
+  function navBtn(id,label,icon){return `<button class="nav-item ${AppState.activeSection===id?'active':''}" onclick="navigate('${id}')"><span class="nav-icon">${icon}</span>${label}</button>`}
+  function toggleDrawer(){const drawer=$("mobileDrawer");const open=drawer.classList.toggle("open");$("drawerOverlay").classList.toggle("hidden",!open)}
+  function closeDrawer(){$("mobileDrawer").classList.remove("open");$("drawerOverlay").classList.add("hidden")}
+  $("drawerOverlay").addEventListener("click",closeDrawer);
+
+  async function navigate(section){closeDrawer();AppState.activeSection=section;AppState.adminLoaded=false;renderAppShell();await renderCurrentSection();if(section==='admin'&&AppState.user?.isAdmin) loadAdminOverview()}
+  async function renderCurrentSection(){const c=$("appContent");if(!c)return;$("pageTitle").textContent=({dashboard:"Dashboard",attendance:"My Attendance",coins:"Coin History",rewards:"Rewards",id:"My ID",profile:"Profile",admin:"Admin Dashboard"}[AppState.activeSection]||"Dashboard");c.innerHTML=`<div class="notice">Loading...</div>`;switch(AppState.activeSection){case"dashboard":await renderDashboard(c);break;case"attendance":await renderAttendance(c);break;case"coins":await renderCoins(c);break;case"rewards":await renderRewards(c);break;case"id":renderId(c);break;case"profile":await renderProfile(c);break;case"admin":await renderAdmin(c);break;default:await renderDashboard(c)}}
+  async function loadDashboard(){try{UI.loading(true,"Loading dashboard...","Checking your account and today's lesson.");const data=await apiRequest("getDashboard",{sessionToken:AppState.sessionToken});AppState.user=data.data.user;AppState.dashboard=data.data;AppState.admin=!!AppState.user.isAdmin;UI.loading(false);renderAppShell();await renderCurrentSection();}catch(ex){UI.loading(false);handleAuthError(ex)}}
+  function handleAuthError(ex){const msg=ex.message||"Session expired.";if(/session|unauthorized|expired/i.test(msg)){localStorage.removeItem("dwcode_session");AppState.sessionToken=null;AppState.user=null;UI.showAuth("login");UI.toast("Your session has expired. Please sign in again.","warning")}else{UI.toast(msg,"error")}}
+
+  async function renderDashboard(c){const d=AppState.dashboard;if(!d){c.innerHTML=`<div class="notice">Dashboard data is not available. <button class="link-btn" onclick="loadDashboard()">Try again</button></div>`;return}const u=d.user,v=d.video,att=d.todayAttendance,reward=d.featuredReward; c.innerHTML=`<div class="welcome"><div><div class="eyebrow">Dowebcode Learn & Earn</div><h1>Welcome back, ${escapeHtml(u.name?.split(" ")[0]||"Learner")} 👋</h1><p>Keep learning. Complete today's lesson and build your reward progress.</p></div><div class="badge ${att?.completed?'success':'info'}">${att?.completed?'✓ Today completed':'● Lesson in progress'}</div></div>
+    <div class="stats-grid"><div class="stat-card"><div class="stat-label">Coins</div><div class="stat-value">${number(u.coins)}</div><div class="stat-help">Backend-verified balance</div></div><div class="stat-card"><div class="stat-label">Completed Days</div><div class="stat-value">${number(u.completedDays)} / ${number(d.settings.requiredDays)}</div><div class="stat-help">Reward target</div></div><div class="stat-card"><div class="stat-label">Today's Attendance</div><div class="stat-value">${att?.completed?'Done':'Pending'}</div><div class="stat-help">One completion per date</div></div><div class="stat-card"><div class="stat-label">Reward</div><div class="stat-value">${reward?.eligible?'Unlocked':'Locked'}</div><div class="stat-help">${escapeHtml(reward?.name||'Configured reward')}</div></div></div>
+    <div class="grid-two"><div>${v?renderLessonCard(v,att,d.watch):renderNoVideo()}${reward?renderRewardMini(reward,d.settings):''}</div><aside>${renderAdCard()}${renderReferralCard()}</aside></div>`;
+    attachLessonEvents(v,att,d.watch);mountAdsterra();
+  }
+  function renderNoVideo(){return `<div class="card card-pad"><div class="card-head"><h2>No lesson available yet</h2><span class="badge warning">Waiting for admin</span></div><div class="notice">No active video is configured for your current lesson day. An administrator needs to add/activate a YouTube video in the Admin Panel.</div></div>`}
+  function renderLessonCard(v,att,watch){
+    const required=Number(v.requiredWatchPercent||80);
+    const progress=Math.min(100,Number(watch?.watchPercent||0));
+    const completed=!!att?.completed;
+    const learningHtml=att?.completed
+      ? `<div class="learn-panel"><div class="notice success">✓ Today's attendance is already completed. Your ${number(v.coinReward)} coin reward has already been issued for this lesson.</div></div>`
+      : `<div id="learningPanel" class="learn-panel ${progress<required?'hidden':''}">
+          <div class="card-head"><div><h3>What did you learn today?</h3><div class="small">Explain the lesson in your own words. Minimum length is ${number(AppState.dashboard.settings.minLearningTextLength)} characters.</div></div></div>
+          <div class="textarea-wrap"><textarea id="learningText" placeholder="Write what you learned from today's video..."></textarea><div id="charCount" class="char-count">0 / ${number(AppState.dashboard.settings.minLearningTextLength)}</div></div>
+          <div class="action-row"><div class="actions-left"><button id="micBtn" class="mic" type="button" title="Speak to write" aria-label="Speak to write">🎤</button><span id="speechStatus" class="speech-status">Speak to Write — browser voice input</span></div><button id="submitLearningBtn" class="btn primary full-mobile" type="button">Submit Learning</button></div>
+          <div id="learningError" class="error-msg" style="margin-top:8px"></div>
+        </div>`;
+    return `<section class="card lesson-card">
+      <div class="lesson-top"><div class="lesson-title"><div class="day-chip">DAY<br><small>${escapeHtml(v.dayNumber)}</small></div><div><div class="eyebrow">Today's lesson</div><h2>${escapeHtml(v.title)}</h2><p>${escapeHtml(v.description||'Watch the lesson, reach the required progress, then submit what you learned.')}</p><div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><span class="badge info">+${number(v.coinReward)} coin${Number(v.coinReward)===1?'':'s'}</span><span class="badge ${completed?'success':'muted'}">${completed?'✓ Completed':'Required '+required+'%'}</span></div></div></div></div>
+      <div class="video-shell"><div id="youtubePlayer" class="video-wrap"></div></div>
+      <div class="watch-panel"><div class="watch-line"><span>Valid watch progress</span><strong id="watchPercentLabel">${progress.toFixed(0)}%</strong></div><div class="progress"><span id="watchProgressBar" style="width:${progress}%"></span></div><div class="small" id="watchHint" style="margin-top:8px">The platform counts meaningful playback progress and ignores large forward seeks.</div></div>
+      ${learningHtml}
+    </section>`;
+  }
+  function attachLessonEvents(v,att,watch){if(!v||att?.completed)return;initYoutubePlayer(v.youtubeVideoId,watch);const ta=$("learningText"),btn=$("submitLearningBtn"),mic=$("micBtn");if(ta){ta.addEventListener("input",()=>{if(!AppState.isListening)AppState.learningInputMethod="typed";const min=AppState.dashboard.settings.minLearningTextLength;$("charCount").textContent=`${ta.value.trim().length} / ${min}`});mic.addEventListener("click",toggleSpeech);btn.addEventListener("click",submitLearning)}}
+  function renderRewardMini(reward,settings){return `<section class="reward-card"><div class="reward-top"><div class="reward-icon">🎁</div><div><h3>${escapeHtml(reward.name||'Website Reward')}</h3><p>${escapeHtml(reward.description||'Complete the configured target to unlock your website resource.')}</p><div style="margin-top:12px"><div class="watch-line"><span>Progress</span><strong>${reward.progressText||''}</strong></div><div class="progress"><span style="width:${Math.round(reward.progressPercent||0)}%"></span></div></div></div></div><div class="reward-actions">${reward.eligible?`<button class="btn primary" onclick="openRewardAccess('${escapeHtml(reward.rewardId)}')">Get Source Code / Prompt</button>`:`<button class="btn secondary" onclick="navigate('rewards')">View Reward Details</button>`}</div></section>`}
+  function renderAdCard(){return `<div class="card ad-card"><div class="ad-box"><div class="ad-label">Advertisement</div><div id="adSlot" class="ad-inner"></div></div></div>`}
+  function mountAdsterra(){const slot=$("adSlot");if(!slot||slot.dataset.mounted)return;slot.dataset.mounted="1";const config=document.createElement("script");config.textContent="atOptions = { 'key' : '6ee744b2a51200ef6ca1a628e7bd5afd', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };";const loader=document.createElement("script");loader.src="https://www.highrevenueformat.com/6ee744b2a51200ef6ca1a628e7bd5afd/invoke.js";loader.async=true;slot.appendChild(config);slot.appendChild(loader);}
+  function renderReferralCard(){return `<div class="card ref-card card-pad"><div class="eyebrow">For website owners</div><h3 style="margin:0 0 7px">Earn From Your Own Website</h3><div class="ref-copy"><p>Have your own website? You can explore website monetization using Adsterra.</p><a href="https://beta.publishers.adsterra.com/referral/nKAf2EhnUT" rel="nofollow" target="_blank"><img alt="Adsterra referral" src="https://landings-cdn.adsterratech.com/referralBanners/gif/300x250_adsterra_reff.gif"></a></div><div class="ref-actions"><a class="btn secondary" target="_blank" rel="nofollow" href="https://beta.publishers.adsterra.com/referral/nKAf2EhnUT">Explore Website Monetization</a></div><div class="small" style="margin-top:10px">Referral content is separate from learning rewards. Ad/referral clicks never earn coins.</div></div>`}
+
+  function onYouTubeIframeAPIReady(){ if(AppState.currentVideo) initYoutubePlayer(AppState.currentVideo.youtubeVideoId,AppState.watch); }
+  function initYoutubePlayer(videoId,watch){AppState.currentVideo={...(AppState.currentVideo||{}),youtubeVideoId:videoId};AppState.watch=watch||AppState.watch||{};const mount=$("youtubePlayer");if(!mount||!window.YT||!YT.Player)return;try{if(AppState.player){AppState.player.destroy();}}catch{} AppState.playerReady=false;AppState.player=new YT.Player("youtubePlayer",{videoId,playerVars:{rel:0,modestbranding:1,playsinline:1},events:{onReady:onPlayerReady,onStateChange:onPlayerStateChange,onError:()=>UI.toast("The YouTube player reported an error.","error")}})}
+  function onPlayerReady(){AppState.playerReady=true;const duration=AppState.player.getDuration();AppState.watch={...(AppState.watch||{}),duration,validSeconds:Number(AppState.watch?.watchSeconds||0),ranges:Array.isArray(AppState.watch?.ranges)?AppState.watch.ranges:[],lastTime:AppState.player.getCurrentTime(),lastSentSeconds:Number(AppState.watch?.watchSeconds||0),lastHeartbeat:Date.now(),playing:false};updateWatchUI();window.clearInterval(window.__watchTimer);window.__watchTimer=window.setInterval(trackPlayback,1000)}
+  function onPlayerStateChange(event){if(!AppState.watch)return;AppState.watch.playing=event.data===YT.PlayerState.PLAYING;AppState.watch.lastTime=AppState.player.getCurrentTime();if(event.data===YT.PlayerState.ENDED){syncWatchProgress(true)}}
+  function addRange(a,b){if(!AppState.watch)return;let start=Math.max(0,Math.min(a,b)),end=Math.max(a,b);if(end<=start)return;const ranges=[...(AppState.watch.ranges||[]),[start,end]].sort((x,y)=>x[0]-y[0]);const merged=[];for(const r of ranges){if(!merged.length||r[0]>merged[merged.length-1][1]+.25)merged.push([...r]);else merged[merged.length-1][1]=Math.max(merged[merged.length-1][1],r[1]);}AppState.watch.ranges=merged;AppState.watch.clientWatched=merged.reduce((s,r)=>s+(r[1]-r[0]),0)}
+  function trackPlayback(){const w=AppState.watch,p=AppState.player;if(!w||!p||!AppState.playerReady)return;let current=0;try{current=p.getCurrentTime()}catch{return}if(w.playing){const delta=current-(w.lastTime||current);if(delta>0&&delta<=2.8)addRange(w.lastTime,current);else if(delta>2.8){/* large seek forward: skipped time intentionally ignored */}w.lastTime=current;}let duration=Number(w.duration||0);if(!duration&&p.getDuration){try{duration=Number(p.getDuration()||0);if(duration)w.duration=duration}catch{}}const clientPct=duration?Math.min(100,(Number(w.clientWatched||0)/duration)*100):0;w.clientPercent=clientPct;updateWatchUI();if((Date.now()-Number(w.lastHeartbeat||0))>=4500 && Number(w.clientWatched||0)-Number(w.lastSentSeconds||0)>=2)syncWatchProgress(false);}
+  function updateWatchUI(){const w=AppState.watch||{},v=AppState.currentVideo||AppState.dashboard?.video;if(!v)return;const percent=Math.min(100,Number(w.clientPercent??w.watchPercent??0));const bar=$("watchProgressBar"),lab=$("watchPercentLabel");if(bar)bar.style.width=`${percent}%`;if(lab)lab.textContent=`${percent.toFixed(0)}%`;const req=Number(v.requiredWatchPercent||80);const panel=$("learningPanel");if(panel&&!AppState.dashboard?.todayAttendance?.completed){if(percent>=req)panel.classList.remove("hidden");}}
+  let syncing=false;async function syncWatchProgress(force=false){if(syncing||!AppState.watch?.sessionId)return;const w=AppState.watch;const total=Number(w.clientWatched||0),sent=Number(w.lastSentSeconds||0),delta=Math.max(0,total-sent),beforeServer=Number(w.serverWatchSeconds||w.watchSeconds||0);if(delta<=0&&!force)return;syncing=true;try{const data=await apiRequest("recordWatchProgress",{sessionToken:AppState.sessionToken,watchSessionId:w.sessionId,videoId:AppState.currentVideo.youtubeRecordId||AppState.dashboard.video.videoId,deltaSeconds:Math.min(delta,20),clientCurrentTime:Number(w.lastTime||0),duration:Number(w.duration||0),playbackState:w.playing?"playing":"paused"});const serverWatch=Number(data.data.watchSeconds||0);w.serverWatchSeconds=serverWatch;w.watchPercent=Number(data.data.watchPercent||0);w.serverEligible=!!data.data.eligible;const accepted=Math.max(0,serverWatch-beforeServer);w.lastSentSeconds=Math.min(total,Number(w.lastSentSeconds||0)+accepted);w.lastHeartbeat=Date.now();if(w.serverEligible&&!AppState.dashboard.todayAttendance?.completed){const panel=$("learningPanel");if(panel)panel.classList.remove("hidden");const hint=$("watchHint");if(hint)hint.textContent="✓ Required watch progress reached. Now tell us what you learned."}updateWatchUI();}catch(ex){/* keep playback usable; final submit still revalidates server-side */}finally{syncing=false}}
+
+  async function submitLearning(){const ta=$("learningText"),err=$("learningError"),btn=$("submitLearningBtn");if(!ta||!btn)return;err.textContent="";const text=ta.value.trim(),min=Number(AppState.dashboard.settings.minLearningTextLength||20);if(text.length<min){err.textContent=`Please write at least ${min} characters.`;return}if(APP_CONFIG.REQUIRE_WATCH_SYNC_BEFORE_SUBMIT){await syncWatchProgress(true)}btn.disabled=true;btn.textContent="⏳ Submitting...";UI.loading(true,"Submitting learning...","The server is validating your watch progress and learning response.");try{const data=await apiRequest("submitLearning",{sessionToken:AppState.sessionToken,videoId:AppState.dashboard.video.videoId,learningText:text,inputMethod:AppState.learningInputMethod||"typed",watchPercent:Number(AppState.watch?.watchPercent||AppState.watch?.clientPercent||0)});UI.loading(false);UI.toast(data.message||"Learning completed.","success");await loadDashboard();}catch(ex){UI.loading(false);err.textContent=ex.message;UI.toast(ex.message,"error")}finally{btn.disabled=false;btn.textContent="Submit Learning"}}
+
+  function toggleSpeech(){const ta=$("learningText"),btn=$("micBtn"),status=$("speechStatus");if(!ta||!btn)return;if(!(window.SpeechRecognition||window.webkitSpeechRecognition)){status.textContent="Voice input is not supported in this browser. Please type your answer.";UI.toast(status.textContent,"warning");return}if(AppState.isListening){AppState.recognition?.stop();return}const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;const rec=new Recognition();rec.lang=(navigator.language||"en-US");rec.continuous=true;rec.interimResults=true;let finalText=ta.value?ta.value.trim()+" ":"";rec.onstart=()=>{AppState.isListening=true;btn.classList.add("listening");status.textContent="🔴 Listening... Speak naturally."};rec.onresult=(event)=>{AppState.learningInputMethod="voice";let interim="";for(let i=event.resultIndex;i<event.results.length;i++){const phrase=event.results[i][0].transcript;if(event.results[i].isFinal)finalText+=phrase+" ";else interim+=phrase}ta.value=(finalText+interim).trim();ta.dispatchEvent(new Event("input"))};rec.onerror=(event)=>{AppState.isListening=false;btn.classList.remove("listening");status.textContent=event.error==="not-allowed"?"Microphone permission was denied.":`Voice input error: ${event.error}`};rec.onend=()=>{AppState.isListening=false;btn.classList.remove("listening");if(!status.textContent.startsWith("Microphone permission"))status.textContent="Voice input ready. Click the mic to speak again."};AppState.recognition=rec;try{rec.start()}catch{status.textContent="Voice input could not start. Please try again."}}
+
+  async function renderAttendance(c){try{const data=await apiRequest("getAttendance",{sessionToken:AppState.sessionToken});const records=data.data.records||[];c.innerHTML=`<div class="card card-pad"><div class="card-head"><div><h2>My Attendance</h2><div class="small">Your verified daily lesson records.</div></div><span class="badge info">${number(records.length)} records</span></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Video</th><th>Watch</th><th>Learning</th><th>Coin</th><th>Status</th></tr></thead><tbody>${records.length?records.map(r=>`<tr><td>${escapeHtml(formatDate(r.date))}</td><td><strong>${escapeHtml(r.videoTitle||r.videoId)}</strong><br><span class="small">${escapeHtml(r.videoId)}</span></td><td>${Number(r.watchPercent||0).toFixed(0)}%</td><td>${r.learningSubmitted?'Yes':'No'}</td><td class="coin-plus">+${number(r.coinAwarded)}</td><td><span class="badge ${r.completed?'success':'warning'}">${r.completed?'Completed':'Incomplete'}</span></td></tr>`).join(''):`<tr><td colspan="6"><div class="notice">No attendance records yet. Complete your first lesson to start your history.</div></td></tr>`}</tbody></table></div></div>`}catch(ex){handleAuthError(ex)}}
+
+  async function renderCoins(c){try{const data=await apiRequest("getCoinHistory",{sessionToken:AppState.sessionToken});const records=data.data.records||[];c.innerHTML=`<div class="card card-pad"><div class="card-head"><div><h2>Coin History</h2><div class="small">Official balance and backend-recorded coin transactions.</div></div><span class="badge success">Total: ${number(AppState.user.coins)} coins</span></div><div class="list">${records.length?records.map(r=>`<div class="list-item"><div class="list-item-main"><strong>${escapeHtml(r.reason)}</strong><span>${escapeHtml(formatDateTime(r.createdAt))}${r.note?' · '+escapeHtml(r.note):''}</span></div><div class="${Number(r.amount)>=0?'coin-plus':'coin-minus'}">${Number(r.amount)>=0?'+':''}${number(r.amount)}</div></div>`).join(''):`<div class="notice">No coin transactions yet.</div>`}</div></div>`}catch(ex){handleAuthError(ex)}}
+
+  async function renderRewards(c){try{const data=await apiRequest("getRewards",{sessionToken:AppState.sessionToken});const rewards=data.data.rewards||[];c.innerHTML=`<div class="page-grid"><div class="card card-pad"><div class="card-head"><div><h2>My Rewards</h2><div class="small">Rewards unlock only after server-side eligibility checks.</div></div></div><div class="two-col">${rewards.length?rewards.map(r=>`<div class="reward-card" style="margin:0"><div class="reward-top"><div class="reward-icon">🎁</div><div><h3>${escapeHtml(r.name)}</h3><p>${escapeHtml(r.description||'')}</p><div style="margin-top:13px"><div class="watch-line"><span>Progress</span><strong>${escapeHtml(r.progressText)}</strong></div><div class="progress"><span style="width:${Math.round(r.progressPercent||0)}%"></span></div></div></div></div><div class="reward-actions">${r.eligible?`<button class="btn primary" onclick="openRewardAccess('${escapeHtml(r.rewardId)}')">Unlock Reward</button>`:`<span class="badge warning">🔒 ${escapeHtml(r.lockReason||'Locked')}</span>`}</div></div>`).join(''):`<div class="notice">No active rewards are configured yet.</div>`}</div></div></div>`}catch(ex){handleAuthError(ex)}}
+
+  async function openRewardAccess(rewardId){UI.loading(true,"Checking reward...","Verifying your eligibility on the server.");try{const data=await apiRequest("getRewardAccess",{sessionToken:AppState.sessionToken,rewardId});const r=data.data;UI.loading(false);const prompt=r.promptText?`<div class="copy-row"><button class="btn secondary" onclick="copyRewardPrompt()">Copy Prompt</button></div><div id="rewardPromptBox" class="code-box">${escapeHtml(r.promptText)}</div>`:'';const license=r.licenseText?`<div class="notice" style="margin-top:14px"><strong>Usage & License</strong><br>${escapeHtml(r.licenseText)}</div>`:'';const source=r.sourceCodeUrl?`<div class="reward-actions"><a class="btn primary" href="${escapeHtml(r.sourceCodeUrl)}" target="_blank" rel="noopener">Get Source Code</a>${r.downloadUrl?`<a class="btn secondary" href="${escapeHtml(r.downloadUrl)}" target="_blank" rel="noopener">Download</a>`:''}</div>`:'';UI.contentModal(r.name||"Reward Unlocked",`<div class="notice success">✓ Reward unlocked. Your eligibility was verified by the backend.</div><p class="muted" style="line-height:1.6">${escapeHtml(r.description||'')}</p>${source}${prompt}${license}`)}catch(ex){UI.loading(false);UI.toast(ex.message,"error")}}
+  async function copyRewardPrompt(){const el=$("rewardPromptBox");if(!el)return;try{await navigator.clipboard.writeText(el.textContent);UI.toast("Prompt copied.","success")}catch{UI.toast("Copy was blocked by the browser. Select and copy the text manually.","warning")}}
+
+  function renderId(c){const u=AppState.user;c.innerHTML=`<div class="card card-pad"><div class="card-head"><div><h2>My ID</h2><div class="small">Your permanent verified membership card.</div></div><span class="badge success">Verified ✓</span></div><div class="id-card" id="liveIdCard"><div class="brand-mark"><span class="brand-icon">DW</span><span>DOWEBCODE LEARN & EARN</span></div><div class="id-main"><div><div class="id-name">${escapeHtml(u.name)}</div><div class="id-meta">${escapeHtml(maskEmail(u.email))}</div><div class="id-status">Verified Member</div></div><div><div class="small" style="color:rgba(255,255,255,.68)">Member ID</div><div class="id-number">${escapeHtml(u.memberId)}</div></div></div></div><div class="id-actions"><button class="btn primary" onclick="printId()">Print ID</button><button class="btn secondary" onclick="printId()">Save / Print as PDF</button></div><div class="notice" style="margin-top:16px">Your Member ID is permanent and connects your account with attendance, learning records, coins and rewards. It does not by itself prove a video was watched; valid playback progress is tracked separately.</div></div>`}
+  function maskEmail(email){const [name,domain]=String(email||'').split('@');if(!domain)return email;const safe=name.length<=2?name[0]+'*':name[0]+'***'+name.slice(-1);return safe+'@'+domain}
+  function printId(){const u=AppState.user;$("printArea").innerHTML=`<div class="print-card"><div class="brand-mark"><span class="brand-icon">DW</span><span>DOWEBCODE LEARN & EARN</span></div><div class="print-main"><div class="print-name">${escapeHtml(u.name)}</div><div class="print-id">${escapeHtml(u.memberId)}</div><div class="print-meta">Verified Member · ${escapeHtml(maskEmail(u.email))} · Coins ${number(u.coins)}</div></div></div>`;window.print()}
+
+  async function renderProfile(c){const u=AppState.user;c.innerHTML=`<div class="card card-pad"><div class="card-head"><div><h2>Profile</h2><div class="small">Update only the information that belongs to your profile.</div></div></div><div class="profile-grid"><div class="profile-badge"><div class="profile-avatar">${escapeHtml(initials(u.name))}</div><strong>${escapeHtml(u.name)}</strong><div class="small" style="margin-top:5px">${escapeHtml(u.memberId)}</div></div><form id="profileForm" class="form-grid"><div class="field"><label>Full name</label><input id="profileName" value="${escapeHtml(u.name)}" required></div><div class="field"><label>Phone number</label><input id="profilePhone" value="${escapeHtml(u.phone)}" required></div><div class="field"><label>Email address</label><input value="${escapeHtml(u.email)}" disabled></div><div class="two-col"><div class="notice"><strong>Account status</strong><br>${escapeHtml(u.status||'active')}</div><div class="notice"><strong>Created</strong><br>${escapeHtml(formatDate(u.createdAt))}</div></div><button class="btn primary" type="submit">Save Profile</button><div id="profileMsg" class="success-msg"></div></form></div></div>`;$("profileForm").addEventListener("submit",async e=>{e.preventDefault();const msg=$("profileMsg");msg.textContent="";UI.loading(true,"Saving profile...","Updating your safe profile fields.");try{const data=await apiRequest("updateProfile",{sessionToken:AppState.sessionToken,name:$("profileName").value.trim(),phone:$("profilePhone").value.trim()});AppState.user=data.data.user;msg.textContent="Profile updated successfully.";UI.toast("Profile updated.","success");renderAppShell()}catch(ex){msg.className="error-msg";msg.textContent=ex.message}finally{UI.loading(false)}})}
+
+  async function renderAdmin(c){if(!AppState.user?.isAdmin){c.innerHTML=`<div class="notice warning">Admin access is not available for this account.</div>`;return}c.innerHTML=`<div class="page-grid"><div class="stats-grid" id="adminStats"><div class="stat-card"><div class="stat-label">Users</div><div class="stat-value">—</div></div><div class="stat-card"><div class="stat-label">Attendance Today</div><div class="stat-value">—</div></div><div class="stat-card"><div class="stat-label">Videos</div><div class="stat-value">—</div></div><div class="stat-card"><div class="stat-label">Rewards</div><div class="stat-value">—</div></div></div><div class="card card-pad"><div class="card-head"><div><h2>Admin Workspace</h2><div class="small">Manage users, attendance, coins, videos, rewards and settings.</div></div><span class="badge admin-badge">Admin verified</span></div><div class="filters" id="adminTabs">${["users","attendance","learning","coins","videos","rewards","settings","logs"].map((x,i)=>`<button class="btn ${i===0?'primary':'secondary'}" data-admin-tab="${x}" onclick="switchAdminTab('${x}')">${x[0].toUpperCase()+x.slice(1)}</button>`).join('')}</div><div id="adminPanel"><div class="notice">Loading admin data...</div></div></div></div>`;await loadAdminPanel("users")}
+  async function loadAdminOverview(){try{const data=await apiRequest("adminOverview",{sessionToken:AppState.sessionToken});AppState.adminOverview=data.data;const box=$("adminStats");if(box)box.innerHTML=`<div class="stat-card"><div class="stat-label">Users</div><div class="stat-value">${number(data.data.users)}</div><div class="stat-help">Registered accounts</div></div><div class="stat-card"><div class="stat-label">Attendance Today</div><div class="stat-value">${number(data.data.attendanceToday)}</div><div class="stat-help">Completed records</div></div><div class="stat-card"><div class="stat-label">Videos</div><div class="stat-value">${number(data.data.videos)}</div><div class="stat-help">All configured videos</div></div><div class="stat-card"><div class="stat-label">Rewards</div><div class="stat-value">${number(data.data.rewards)}</div><div class="stat-help">Active reward configs</div></div>`}catch(ex){UI.toast(ex.message,"error")}}
+  let currentAdminTab="users";function switchAdminTab(tab){currentAdminTab=tab;document.querySelectorAll("[data-admin-tab]").forEach(b=>b.classList.toggle("primary",b.dataset.adminTab===tab));document.querySelectorAll("[data-admin-tab]").forEach(b=>b.classList.toggle("secondary",b.dataset.adminTab!==tab));loadAdminPanel(tab)}
+  async function loadAdminPanel(tab){const p=$("adminPanel");if(!p)return;p.innerHTML=`<div class="notice">Loading ${escapeHtml(tab)}...</div>`;try{const action={users:"adminUsers",attendance:"adminAttendance",learning:"adminLearningLogs",coins:"adminCoinHistory",videos:"adminVideos",rewards:"adminRewards",settings:"adminSettings",logs:"adminLogs"}[tab];const data=await apiRequest(action,{sessionToken:AppState.sessionToken});AppState.adminCache[tab]=data.data;renderAdminPanel(tab,data.data)}catch(ex){p.innerHTML=`<div class="notice warning">${escapeHtml(ex.message)}</div>`}}
+  function renderAdminPanel(tab,d){const p=$("adminPanel");if(!p)return;switch(tab){case"users":renderAdminUsers(p,d);break;case"attendance":renderAdminAttendance(p,d);break;case"learning":renderAdminLearning(p,d);break;case"coins":renderAdminCoins(p,d);break;case"videos":renderAdminVideos(p,d);break;case"rewards":renderAdminRewards(p,d);break;case"settings":renderAdminSettings(p,d);break;case"logs":renderAdminLogs(p,d);break}}
+  function renderAdminUsers(p,d){p.innerHTML=`<div class="filters"><input id="userSearch" placeholder="Search member ID, email, name or phone..." oninput="filterAdminTable('users')"></div><div class="table-wrap"><table class="data-table" id="usersTable"><thead><tr><th>Member ID</th><th>User</th><th>Email</th><th>Status</th><th>Coins</th><th>Days</th><th>Created</th><th>Last Login</th></tr></thead><tbody>${(d.users||[]).map(u=>`<tr data-search="${escapeHtml([u.memberId,u.name,u.email,u.phone].join(' ')).toLowerCase()}"><td class="mono">${escapeHtml(u.memberId)}</td><td><strong>${escapeHtml(u.name)}</strong><br><span class="small">${escapeHtml(u.phone)}</span></td><td>${escapeHtml(u.email)}</td><td><span class="badge ${u.verified?'success':'warning'}">${u.verified?'Verified':'Unverified'}</span></td><td>${number(u.coins)}</td><td>${number(u.completedDays)}</td><td>${escapeHtml(formatDate(u.createdAt))}</td><td>${escapeHtml(formatDateTime(u.lastLogin))}</td></tr>`).join('')||`<tr><td colspan="8">No users found.</td></tr>`}</tbody></table></div>`}
+  function filterAdminTable(){const q=($("userSearch")?.value||"").toLowerCase();document.querySelectorAll("#usersTable tbody tr").forEach(r=>r.style.display=!q||r.dataset.search.includes(q)?'':'none')}
+  function renderAdminAttendance(p,d){p.innerHTML=`<div class="filters"><input id="attDate" type="date"><input id="attMember" placeholder="Member ID"><select id="attStatus"><option value="">All statuses</option><option value="completed">Completed</option><option value="incomplete">Incomplete</option></select><button class="btn secondary" onclick="filterAttendance()">Filter</button></div><div class="table-wrap"><table class="data-table" id="attendanceTable"><thead><tr><th>Date</th><th>Member</th><th>Video</th><th>Watch</th><th>Learning</th><th>Coin</th><th>Status</th><th>Action</th></tr></thead><tbody>${(d.records||[]).map(r=>`<tr data-date="${escapeHtml(r.dateKey||'')}" data-member="${escapeHtml((r.memberId||'').toLowerCase())}" data-status="${r.completed?'completed':'incomplete'}"><td>${escapeHtml(formatDate(r.date))}</td><td class="mono">${escapeHtml(r.memberId)}</td><td>${escapeHtml(r.videoTitle||r.videoId)}</td><td>${Number(r.watchPercent||0).toFixed(0)}%</td><td>${r.learningSubmitted?'Yes':'No'}</td><td>+${number(r.coinAwarded)}</td><td><span class="badge ${r.completed?'success':'warning'}">${r.completed?'Completed':'Incomplete'}</span></td><td><button class="btn secondary" onclick="adminEditAttendance('${escapeHtml(r.attendanceId)}')">Edit</button></td></tr>`).join('')||`<tr><td colspan="8">No attendance records.</td></tr>`}</tbody></table></div>`}
+  function filterAttendance(){const date=$("attDate").value,member=($("attMember").value||'').toLowerCase(),status=$("attStatus").value;document.querySelectorAll("#attendanceTable tbody tr").forEach(r=>{const ok=(!date||r.dataset.date===date)&&(!member||r.dataset.member.includes(member))&&(!status||r.dataset.status===status);r.style.display=ok?'':'none'})}
+  function renderAdminLearning(p,d){p.innerHTML=`<div class="table-wrap"><table class="data-table"><thead><tr><th>Submitted</th><th>Member</th><th>Video</th><th>Input</th><th>Watch</th><th>Learning</th></tr></thead><tbody>${(d.records||[]).map(r=>`<tr><td>${escapeHtml(formatDateTime(r.submittedAt))}</td><td class="mono">${escapeHtml(r.memberId)}</td><td>${escapeHtml(r.videoId)}</td><td>${escapeHtml(r.inputMethod)}</td><td>${Number(r.watchPercent||0).toFixed(0)}%</td><td style="min-width:280px;line-height:1.55">${escapeHtml(r.learningText)}</td></tr>`).join('')||`<tr><td colspan="6">No learning logs.</td></tr>`}</tbody></table></div>`}
+  function renderAdminCoins(p,d){p.innerHTML=`<div class="filters"><button class="btn primary" onclick="openCoinAdjustDialog()">Adjust User Coins</button></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Member</th><th>Amount</th><th>Reason</th><th>Note</th><th>Admin</th></tr></thead><tbody>${(d.records||[]).map(r=>`<tr><td>${escapeHtml(formatDateTime(r.createdAt))}</td><td class="mono">${escapeHtml(r.memberId)}</td><td class="${Number(r.amount)>=0?'coin-plus':'coin-minus'}">${Number(r.amount)>=0?'+':''}${number(r.amount)}</td><td>${escapeHtml(r.reason)}</td><td>${escapeHtml(r.note||'')}</td><td>${escapeHtml(r.adminEmail||'')}</td></tr>`).join('')||`<tr><td colspan="6">No coin history.</td></tr>`}</tbody></table></div>`}
+  function renderAdminVideos(p,d){p.innerHTML=`<div class="filters"><button class="btn primary" onclick="openVideoDialog()">Add Video</button></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Day</th><th>Video</th><th>Title</th><th>Watch %</th><th>Coins</th><th>Status</th><th>Actions</th></tr></thead><tbody>${(d.videos||[]).map(v=>`<tr><td>${number(v.dayNumber)}</td><td class="mono">${escapeHtml(v.youtubeVideoId)}</td><td>${escapeHtml(v.title)}</td><td>${number(v.requiredWatchPercent)}%</td><td>${number(v.coinReward)}</td><td><span class="badge ${v.active?'success':'muted'}">${v.active?'Active':'Inactive'}</span></td><td class="table-actions"><button class="btn secondary" onclick='openVideoDialog(${JSON.stringify(v)})'>Edit</button><button class="btn secondary" onclick="adminToggleVideo('${escapeHtml(v.videoId)}',${!v.active})">${v.active?'Deactivate':'Activate'}</button></td></tr>`).join('')||`<tr><td colspan="7">No videos configured.</td></tr>`}</tbody></table></div>`}
+  function renderAdminRewards(p,d){p.innerHTML=`<div class="filters"><button class="btn primary" onclick="openRewardDialog()">Add Reward</button></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Reward</th><th>Mode</th><th>Days</th><th>Coins</th><th>Status</th><th>Actions</th></tr></thead><tbody>${(d.rewards||[]).map(r=>`<tr><td><strong>${escapeHtml(r.name)}</strong><br><span class="small">${escapeHtml(r.rewardId)}</span></td><td>${escapeHtml(r.rewardMode)}</td><td>${number(r.requiredDays)}</td><td>${number(r.requiredCoins)}</td><td><span class="badge ${r.active?'success':'muted'}">${r.active?'Active':'Inactive'}</span></td><td class="table-actions"><button class="btn secondary" onclick='openRewardDialog(${JSON.stringify(r)})'>Edit</button><button class="btn secondary" onclick="adminToggleReward('${escapeHtml(r.rewardId)}',${!r.active})">${r.active?'Deactivate':'Activate'}</button></td></tr>`).join('')||`<tr><td colspan="6">No rewards configured.</td></tr>`}</tbody></table></div>`}
+  function renderAdminSettings(p,d){
+    const s=d.settings||{};
+    const keys=["APP_NAME","ADMIN_EMAIL","FRONTEND_APP_URL","REQUIRED_WATCH_PERCENT","MIN_LEARNING_TEXT_LENGTH","DEFAULT_DAILY_COIN","REWARD_MODE","REQUIRED_DAYS","REQUIRED_COINS"];
+    const fields=keys.map(k=>{
+      const control=k==="REWARD_MODE"
+        ? `<select data-setting="${k}"><option>BY_DAYS</option><option>BY_COINS</option><option>BY_DAYS_AND_COINS</option></select>`
+        : `<input data-setting="${k}" value="${escapeHtml(s[k]??'')}">`;
+      return `<div class="field"><label>${escapeHtml(k)}</label>${control}</div>`;
+    }).join('');
+    p.innerHTML=`<form id="settingsForm" class="form-grid">${fields}<div class="notice">YouTube Data API is intentionally not part of this V1. Admins manually add YouTube video IDs. Browser voice input also uses the browser's native speech recognition when supported.</div><button class="btn primary" type="submit">Save Settings</button><div id="settingsMsg" class="success-msg"></div></form>`;
+    document.querySelectorAll("[data-setting]").forEach(el=>{el.value=s[el.dataset.setting]??''});
+    $("settingsForm").addEventListener("submit",saveAdminSettings);
+  }
+  async function saveAdminSettings(e){e.preventDefault();const settings={};document.querySelectorAll("[data-setting]").forEach(el=>settings[el.dataset.setting]=el.value.trim());UI.loading(true,"Saving settings...","Validating configuration on the backend.");try{const data=await apiRequest("saveAdminSettings",{sessionToken:AppState.sessionToken,settings});$("settingsMsg").textContent=data.message;UI.toast("Settings saved.","success");await loadAdminPanel('settings')}catch(ex){UI.toast(ex.message,"error")}finally{UI.loading(false)}}
+  function renderAdminLogs(p,d){p.innerHTML=`<div class="table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Admin</th><th>Action</th><th>Target</th><th>Details</th></tr></thead><tbody>${(d.records||[]).map(r=>`<tr><td>${escapeHtml(formatDateTime(r.createdAt))}</td><td>${escapeHtml(r.adminEmail)}</td><td>${escapeHtml(r.action)}</td><td>${escapeHtml(r.targetId||'')}</td><td>${escapeHtml(r.details||'')}</td></tr>`).join('')||`<tr><td colspan="5">No admin log records.</td></tr>`}</tbody></table></div>`}
+  function openCoinAdjustDialog(){UI.contentModal("Adjust User Coins",`<form id="coinAdjustForm" class="form-grid"><div class="field"><label>Member ID</label><input id="adjMember" required placeholder="DWC-2026-000001"></div><div class="field"><label>Amount (use negative to remove)</label><input id="adjAmount" type="number" step="1" required placeholder="2"></div><div class="field"><label>Reason</label><input id="adjReason" required placeholder="Manual correction"></div><div class="field"><label>Note</label><textarea id="adjNote" style="min-height:90px" placeholder="Why is this adjustment necessary?"></textarea></div><button class="btn primary" type="submit">Confirm Adjustment</button></form>`);$("coinAdjustForm").addEventListener("submit",async e=>{e.preventDefault();UI.loading(true,"Adjusting coins...","Writing the transaction and admin log.");try{const data=await apiRequest("adjustCoins",{sessionToken:AppState.sessionToken,memberId:$("adjMember").value.trim(),amount:Number($("adjAmount").value),reason:$("adjReason").value.trim(),note:$("adjNote").value.trim()});UI.loading(false);UI.closeModal('contentModal');UI.toast(data.message,"success");loadAdminPanel('coins');}catch(ex){UI.loading(false);UI.toast(ex.message,"error")}})}
+  function openVideoDialog(v={}){UI.contentModal(v.videoId?"Edit Video":"Add Video",`<form id="videoForm" class="form-grid"><input id="videoId" type="hidden" value="${escapeHtml(v.videoId||'')}"><div class="form-grid two"><div class="field"><label>YouTube Video ID</label><input id="ytId" required value="${escapeHtml(v.youtubeVideoId||'')}" placeholder="dQw4w9WgXcQ"></div><div class="field"><label>Day Number</label><input id="dayNumber" type="number" min="1" required value="${escapeHtml(v.dayNumber||'')}"></div></div><div class="field"><label>Title</label><input id="vTitle" required value="${escapeHtml(v.title||'')}"></div><div class="field"><label>Description</label><textarea id="vDescription" style="min-height:90px">${escapeHtml(v.description||'')}</textarea></div><div class="form-grid two"><div class="field"><label>Required Watch %</label><input id="vWatch" type="number" min="1" max="100" required value="${escapeHtml(v.requiredWatchPercent||80)}"></div><div class="field"><label>Coin Reward</label><input id="vCoins" type="number" min="0" required value="${escapeHtml(v.coinReward||1)}"></div></div><label style="display:flex;align-items:center;gap:9px"><input id="vActive" type="checkbox" ${v.active!==false?'checked':''} style="width:auto"> Active</label><button class="btn primary" type="submit">Save Video</button></form>`);$("videoForm").addEventListener("submit",async e=>{e.preventDefault();const payload={sessionToken:AppState.sessionToken,videoId:$("videoId").value.trim()||null,youtubeVideoId:$("ytId").value.trim(),dayNumber:Number($("dayNumber").value),title:$("vTitle").value.trim(),description:$("vDescription").value.trim(),requiredWatchPercent:Number($("vWatch").value),coinReward:Number($("vCoins").value),active:$("vActive").checked};UI.loading(true,"Saving video...","Updating the Videos sheet.");try{const data=await apiRequest("saveVideo",payload);UI.loading(false);UI.closeModal('contentModal');UI.toast(data.message,"success");loadAdminPanel('videos');}catch(ex){UI.loading(false);UI.toast(ex.message,"error")}})}
+  async function adminToggleVideo(videoId,active){if(!confirm(`${active?'Activate':'Deactivate'} this video?`))return;UI.loading(true,"Updating video...","Applying the admin change.");try{const data=await apiRequest("setVideoStatus",{sessionToken:AppState.sessionToken,videoId,active});UI.toast(data.message,"success");await loadAdminPanel('videos')}catch(ex){UI.toast(ex.message,"error")}finally{UI.loading(false)}}
+  function openRewardDialog(r={}){UI.contentModal(r.rewardId?"Edit Reward":"Add Reward",`<form id="rewardForm" class="form-grid"><input id="rewardId" type="hidden" value="${escapeHtml(r.rewardId||'')}"><div class="field"><label>Reward Name</label><input id="rName" required value="${escapeHtml(r.name||'')}"></div><div class="field"><label>Description</label><textarea id="rDesc" style="min-height:90px">${escapeHtml(r.description||'')}</textarea></div><div class="form-grid two"><div class="field"><label>Reward Mode</label><select id="rMode"><option>BY_DAYS</option><option>BY_COINS</option><option>BY_DAYS_AND_COINS</option></select></div><div class="field"><label>Required Days</label><input id="rDays" type="number" min="0" value="${escapeHtml(r.requiredDays||7)}"></div></div><div class="form-grid two"><div class="field"><label>Required Coins</label><input id="rCoins" type="number" min="0" value="${escapeHtml(r.requiredCoins||7)}"></div><div class="field"><label>Active</label><select id="rActive"><option value="true">Active</option><option value="false">Inactive</option></select></div></div><div class="field"><label>Source Code URL (Google Drive preferred)</label><input id="rSource" value="${escapeHtml(r.sourceCodeUrl||'')}"></div><div class="field"><label>Download URL</label><input id="rDownload" value="${escapeHtml(r.downloadUrl||'')}"></div><div class="field"><label>Website Prompt</label><textarea id="rPrompt" style="min-height:180px">${escapeHtml(r.promptText||'')}</textarea></div><div class="field"><label>Usage & License</label><textarea id="rLicense" style="min-height:130px">${escapeHtml(r.licenseText||'')}</textarea></div><button class="btn primary" type="submit">Save Reward</button></form>`);$("rMode").value=r.rewardMode||"BY_DAYS";$("rActive").value=String(r.active!==false);$("rewardForm").addEventListener("submit",async e=>{e.preventDefault();const payload={sessionToken:AppState.sessionToken,rewardId:$("rewardId").value.trim()||null,name:$("rName").value.trim(),description:$("rDesc").value.trim(),rewardMode:$("rMode").value,requiredDays:Number($("rDays").value),requiredCoins:Number($("rCoins").value),sourceCodeUrl:$("rSource").value.trim(),downloadUrl:$("rDownload").value.trim(),promptText:$("rPrompt").value,licenseText:$("rLicense").value,active:$("rActive").value==='true'};UI.loading(true,"Saving reward...","Updating reward configuration.");try{const data=await apiRequest("saveReward",payload);UI.loading(false);UI.closeModal('contentModal');UI.toast(data.message,"success");loadAdminPanel('rewards');}catch(ex){UI.loading(false);UI.toast(ex.message,"error")}})}
+  async function adminToggleReward(rewardId,active){if(!confirm(`${active?'Activate':'Deactivate'} this reward?`))return;UI.loading(true,"Updating reward...","Applying the admin change.");try{const data=await apiRequest("setRewardStatus",{sessionToken:AppState.sessionToken,rewardId,active});UI.toast(data.message,"success");await loadAdminPanel('rewards')}catch(ex){UI.toast(ex.message,"error")}finally{UI.loading(false)}}
+  function adminEditAttendance(attendanceId){const record=(AppState.adminCache.attendance?.records||[]).find(r=>r.attendanceId===attendanceId);if(!record)return;UI.contentModal("Correct Attendance",`<form id="attForm" class="form-grid"><div class="notice">${escapeHtml(record.memberId)} · ${escapeHtml(record.videoTitle||record.videoId)} · ${escapeHtml(formatDate(record.date))}</div><label style="display:flex;align-items:center;gap:9px"><input id="attCompleted" type="checkbox" ${record.completed?'checked':''} style="width:auto"> Mark completed</label><div class="field"><label>Admin reason</label><textarea id="attReason" required style="min-height:90px" placeholder="Explain the correction."></textarea></div><button class="btn primary" type="submit">Save Correction</button></form>`);$("attForm").addEventListener("submit",async e=>{e.preventDefault();UI.loading(true,"Saving attendance correction...","Creating the required admin audit log.");try{const data=await apiRequest("adjustAttendance",{sessionToken:AppState.sessionToken,attendanceId,completed:$("attCompleted").checked,reason:$("attReason").value.trim()});UI.loading(false);UI.closeModal('contentModal');UI.toast(data.message,"success");loadAdminPanel('attendance')}catch(ex){UI.loading(false);UI.toast(ex.message,"error")}})}
+
+  async function logout(){try{if(AppState.sessionToken)await apiRequest("logout",{sessionToken:AppState.sessionToken})}catch{}localStorage.removeItem("dwcode_session");AppState.sessionToken=null;AppState.user=null;AppState.dashboard=null;AppState.player=null;UI.showAuth("login");UI.toast("You have been logged out.","info")}
+
+  // Query-string reset link support.
+  if(new URLSearchParams(location.search).has("reset")){
+    window.addEventListener("DOMContentLoaded",()=>{renderAuthForms();UI.showAuth("reset")});
+  }
+  window.addEventListener("DOMContentLoaded",()=>UI.init());
+  </script>
+</body>
+</html>
